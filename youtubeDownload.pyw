@@ -7,6 +7,7 @@ from tkinter import ttk
 from tkinter.filedialog import asksaveasfile
 from traceback import format_tb
 import os
+import threading
 
 def toplevelerror(message,title='Error'):
     title = str(title)
@@ -30,6 +31,8 @@ sys.excepthook = handle_exception
 
 def download_video():
     global ent
+    global btn0
+    btn0['state'] = 'disabled'
     if os.system('ping youtube.com -n 1') == 0:
         try:
             yt = pytube.YouTube(ent.get())
@@ -49,9 +52,15 @@ def download_video():
                 file_size = os.path.getsize(p.name)
                 tk.Tk().withdraw()
                 messagebox.showinfo('Info','Finished downloading video '+str(yt.watch_url)+' to\n'+str(p.name)+'\nfilesize: '+str(file_size)+'Bytes')
+    else:
+        tk.Tk().withdraw()
+        messagebox.showerror('Error','Could not connect to Youtube. Check your internet connection?')
+    btn0['state'] = 'normal'
 
 def download_audio():
+    global btn2
     global ent
+    btn2['state'] = 'disabled'
     if os.system('ping youtube.com -n 1') == 0:
         try:
             yt = pytube.YouTube(ent.get())
@@ -75,6 +84,7 @@ def download_audio():
     else:
         tk.Tk().withdraw()
         messagebox.showerror('Error','Could not connect to Youtube. Check your internet connection?')
+    btn2['state'] = 'normal'
 
 root = tk.Tk()
 root.title('Youtube Downloader')
@@ -85,9 +95,9 @@ lbl = ttk.Label(root,text='Please input the full URL to the video you want to do
 lbl.pack()
 ent = ttk.Entry(root,width=50)
 ent.pack()
-btn0 = ttk.Button(root,text='Download Video',command=download_video)
+btn0 = ttk.Button(root,text='Download Video',command=lambda: threading.Thread(target=download_video).start())
 btn0.pack()
-btn2 = ttk.Button(root,text='Download Audio',command=download_audio)
+btn2 = ttk.Button(root,text='Download Audio',command=lambda: threading.Thread(target=download_audio).start())
 btn2.pack()
 btn1 = ttk.Button(root,text='Exit',command=sys.exit)
 btn1.pack()
