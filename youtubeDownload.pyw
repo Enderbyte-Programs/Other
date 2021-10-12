@@ -73,7 +73,7 @@ def download_video_l():
             tk.Tk().withdraw()
             messagebox.showerror('Error','Invalid Video URL!')
         else:
-            x = yt.streams.get_highest_resolution()
+            x = yt.streams.get_lowest_resolution()
             files = [('mp4 video',"*.mp4")]
             p = asksaveasfile(filetypes = files, defaultextension = files,title='Please choose save file')
             if p == None:
