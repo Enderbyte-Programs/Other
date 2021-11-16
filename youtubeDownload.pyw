@@ -35,7 +35,7 @@ def download_video():
     global btn1
     btn1['state'] = 'disabled'
     btn0['state'] = 'disabled'
-    if os.system('ping youtube.com -n 1') == 0:
+    if os.system('ping 8.8.8.8 -n 1') == 0:
         try:
             yt = pytube.YouTube(ent.get())
             yt.check_availability()
@@ -65,7 +65,7 @@ def download_video_l():
     global btn1
     btn1['state'] = 'disabled'
     btn3['state'] = 'disabled'
-    if os.system('ping youtube.com -n 1') == 0:
+    if os.system('ping 8.8.8.8 -n 1') == 0:
         try:
             yt = pytube.YouTube(ent.get())
             yt.check_availability()
@@ -96,7 +96,7 @@ def download_audio():
     global btn1
     btn1['state'] = 'disabled'
     btn2['state'] = 'disabled'
-    if os.system('ping youtube.com -n 1') == 0:
+    if os.system('ping 8.8.8.8 -n 1') == 0:
         try:
             yt = pytube.YouTube(ent.get())
             yt.check_availability()
