@@ -16,7 +16,7 @@ def get_length(filename):
 
 _dlv = True
 if _dlv:# Only downloading when conditional. Downloading takes over an hour.
-    c = pytube.Channel("https://www.youtube.com/channel/UCQpozDPRr27sYJz8E_IfhWg")
+    c = pytube.Channel("https://www.youtube.com/c/TheHorizonMC")
     inc = 0
     bar = ProgressBar(len(c.video_urls)*2,prefix="Downloading",suffix="Preparing",bar_length=200,spinner_type="s")
     for video in c.video_urls:
@@ -29,7 +29,10 @@ if _dlv:# Only downloading when conditional. Downloading takes over an hour.
             st.download(filename=f"vid_{inc}.mp4")
         except:
             bar.iter()
-            os.remove(f"vid_{inc}.mp4")
+            try:
+                os.remove(f"vid_{inc}.mp4")
+            except:
+                pass
             continue
         inc += 1
     bar.wait()
@@ -52,6 +55,15 @@ if _exv:
 
     bar.wait()
     bar.stop()
+
+#Removing empty files to prevent glitvhes
+fls = [f for f in os.listdir(os.getcwd()) if os.path.isfile(os.path.join(os.getcwd(),f))]
+for file in fls:
+    if os.path.getsize(file) == 0:
+        try:
+            os.remove(file)
+        except:
+            print("Failed to remove corrupt file")
 
 lg = glob.glob("*x.mp4")#Filtering split videos only
 data = ""
