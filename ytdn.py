@@ -16,7 +16,7 @@ def get_length(filename):
 
 _dlv = True
 if _dlv:# Only downloading when conditional. Downloading takes over an hour.
-    c = pytube.Channel("https://www.youtube.com/c/McYum")
+    c = pytube.Channel("https://www.youtube.com/channel/UCQpozDPRr27sYJz8E_IfhWg")
     inc = 0
     bar = ProgressBar(len(c.video_urls)*2,prefix="Downloading",suffix="Preparing",bar_length=200,spinner_type="s")
     for video in c.video_urls:
